@@ -1,2 +1,2 @@
-# coursecontent
-Content for Azure courses
+# Course content
+Scripts and other fiels I use in my trianing
