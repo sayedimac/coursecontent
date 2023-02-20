@@ -1,2 +1,2 @@
 # Course content
-Scripts and other fiels I use in my trianing
+Scripts and other files we might use in my trianing
