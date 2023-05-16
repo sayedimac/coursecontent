@@ -15,6 +15,9 @@ remove-item .\AzureCLI.msi
 Connect-AzAccount 
 az login
 
+az account set --name "Training"
+Select-AzSubscription -SubscriptionName 'Training'     
+
 # Configure AZ CLI
 az configure
 
