@@ -71,6 +71,19 @@ New-AzVm `
     New-AzResourceGroupDeployment -ResourceGroupName az104ps -TemplateFile ./azuredeploy.json    
     az deployment group create --name CLIDeployment --resource-group az104-a --template-file azuredeploy.json
 
+    #Bicep
+New-AzResourceGroupDeployment `
+  -Name demoRGDeployment `
+  -ResourceGroupName ExampleGroup `
+  -TemplateFile main.bicep `
+  -storageAccountType Standard_GRS `
+
+  az deployment group create \
+  --name demoRGDeployment \
+  --resource-group ExampleGroup \
+  --template-file main.bicep \
+  --parameters storageAccountType=Standard_GRS
+
 # Create nsg rule for VM
 $RGname="az104ps"
 $port=80
@@ -87,15 +100,4 @@ $nsg | Set-AzNetworkSecurityGroup
 
 az vm open-port --port 80 --resource-group az104cli --name az104cli
 
-#Bicep
-New-AzResourceGroupDeployment `
-  -Name demoRGDeployment `
-  -ResourceGroupName ExampleGroup `
-  -TemplateFile main.bicep `
-  -storageAccountType Standard_GRS `
 
-  az deployment group create \
-  --name demoRGDeployment \
-  --resource-group ExampleGroup \
-  --template-file main.bicep \
-  --parameters storageAccountType=Standard_GRS
