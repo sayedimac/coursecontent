@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+resources:
+  pipelines:
+  - pipeline: first # Name of the pipeline resource/label if you want to reuse it here
+    source: Slots-first # The name of the pipeline that should trigger this pipeline.
+    trigger: true # True implies that the previous pipeline will trigger this pipeline
+
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world #2!
+  displayName: 'Run a one-line script from Pipeline 2'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
