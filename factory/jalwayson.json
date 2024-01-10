@@ -1,0 +1,9 @@
+{
+	"name": "jalwayson",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bd7d3e31-12a6-44ab-a81d-acf2ffd26d44",
+		"tenantId": "4473b288-e49a-4904-bb61-9c6bafc0a04f"
+	}
+}
