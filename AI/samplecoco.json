@@ -1,0 +1,38 @@
+{
+ "images": [
+   {
+     "id": 1,
+     "width": 2278,
+     "height": 1311,
+     "file_name": "london.jpg",
+     "absolute_url": "https://alwaysonstore.blob.core.windows.net/vision/london.jpg"
+   }
+],
+  "annotations": [
+    {
+      "id": 1,
+      "category_id": 7,
+      "image_id": 1,
+      "area": 0.407,
+      "bbox": [
+        0.02663142641129032,
+        0.40691584277841153,
+        0.9524163571731749,
+        0.42766634515266866
+      ]
+    }  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Map"
+    },
+    {
+      "id": 2,
+      "name": "buroughs"
+    },
+    {
+      "id": 3,
+      "name": "city"
+    }
+  ]
+}

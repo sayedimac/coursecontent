@@ -1,0 +1,862 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Computer Vision API (v3.2-preview.3)",
+        "version": "v3.2-preview.3",
+        "description": "The Computer Vision API provides state-of-the-art algorithms to process images and return information.  For example, it can be used to determine if an image contains mature content, or it can be used to find all the faces in an image.  It also has other features like estimating dominant and accent colors, categorizing the content of images, and describing an image with complete English sentences.  Additionally, it can also intelligently generate images thumbnails for displaying large images effectively.\n\nThis API is currently available in:\n\n* Australia East - australiaeast.api.cognitive.microsoft.com\n* Brazil South - brazilsouth.api.cognitive.microsoft.com\n* Canada Central - canadacentral.api.cognitive.microsoft.com\n* Central India - centralindia.api.cognitive.microsoft.com\n* Central US - centralus.api.cognitive.microsoft.com\n* East Asia - eastasia.api.cognitive.microsoft.com\n* East US - eastus.api.cognitive.microsoft.com\n* East US 2 - eastus2.api.cognitive.microsoft.com\n* France Central - francecentral.api.cognitive.microsoft.com\n* Japan East - japaneast.api.cognitive.microsoft.com\n* Japan West - japanwest.api.cognitive.microsoft.com\n* Korea Central - koreacentral.api.cognitive.microsoft.com\n* North Central US - northcentralus.api.cognitive.microsoft.com\n* North Europe - northeurope.api.cognitive.microsoft.com\n* South Africa North - southafricanorth.api.cognitive.microsoft.com\n* South Central US - southcentralus.api.cognitive.microsoft.com\n* Southeast Asia - southeastasia.api.cognitive.microsoft.com\n* UK South - uksouth.api.cognitive.microsoft.com\n* West Central US - westcentralus.api.cognitive.microsoft.com\n* West Europe - westeurope.api.cognitive.microsoft.com\n* West US - westus.api.cognitive.microsoft.com\n* West US 2 - westus2.api.cognitive.microsoft.com"
+    },
+    "host": "https://jai102multi.cognitiveservices.azure.com/",
+    "basePath": "/vision/v3.2-preview.3",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "apiKeyHeader": {
+            "type": "apiKey",
+            "name": "Ocp-Apim-Subscription-Key",
+            "in": "header"
+        },
+        "apiKeyQuery": {
+            "type": "apiKey",
+            "name": "subscription-key",
+            "in": "query"
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ],
+    "x-servers": [
+        {
+            "url": "https://cognitiveuseprod.cognitiveservices.azure.com"
+        },
+        {
+            "url": "https://cognitiveuseprod.openai.azure.com"
+        },
+        {
+            "url": "https://eastus.api.cognitive.microsoft.com"
+        }
+    ],
+    "paths": {
+        "/analyze": {
+            "post": {
+                "description": "This operation extracts a rich set of visual features based on the image content. \n        <br>\n        <br>\n        Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.  Within your request, there is an optional parameter to allow you to choose which features to return.  By default, image categories are returned in the response. \n        <br>\n        <br>\n        A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong. \n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "56f91f2e778daf14a499f21b",
+                "summary": "Analyze Image",
+                "parameters": [
+                    {
+                        "name": "visualFeatures",
+                        "in": "query",
+                        "description": "A string indicating what visual feature types to return. Multiple values should be comma-separated. \n<br/>Valid visual feature types include:\n<br/>\t\n<ul>\n<li><b>Adult</b> - detects if the image is pornographic in nature (depicts nudity or a sex act), or is gory (depicts extreme violence or blood). Sexually suggestive content (aka racy content) is also detected.</li>\n<li><b>Brands</b> - detects various brands within an image, including the approximate location. The Brands argument is only available in English.</li>\n<li><b>Categories</b> - categorizes image content according to a taxonomy defined in documentation. </li>\n<li><b>Color</b> - determines the accent color, dominant color, and whether an image is black&white.</li>\n<li><b>Description</b> - describes the image content with a complete sentence in supported languages. </li>\n<li><b>Faces</b> - detects if faces are present. If present, generate coordinates, gender and age.</li> \n<li><b>ImageType</b> - detects if image is clipart or a line drawing.</li>\n<li><b>Objects</b> - detects various objects within an image, including the approximate location. The Objects argument is only available in English.</li>\n<li><b>Tags</b> - tags the image with a detailed list of words related to the image content. </li>\n</ul>",
+                        "type": "string",
+                        "default": "Categories",
+                        "enum": [
+                            "Adult",
+                            "Brands",
+                            "Categories",
+                            "Color",
+                            "Description",
+                            "Faces",
+                            "ImageType",
+                            "Objects",
+                            "Tags"
+                        ]
+                    },
+                    {
+                        "name": "details",
+                        "in": "query",
+                        "description": "A string indicating which domain-specific details to return. Multiple values should be comma-separated. \n<br/>Valid visual feature types include:\n<br/>\t\n<ul>\n<li><b >Celebrities</b> - identifies celebrities if detected in the image.</li>\n<li><b >Landmarks</b> - identifies landmarks if detected in the image.</li>\n</ul>\n",
+                        "type": "string",
+                        "enum": [
+                            "Celebrities",
+                            "Landmarks"
+                        ]
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "A string indicating which language to return. The service will return recognition results in specified language. If this parameter is not specified, the default value is &quot;en&quot;.<br />\nSupported languages:\n<ul>\n<li><b>en</b> - English, Default.</li>\n<li><b>es</b> - Spanish.</li>\n<li><b>ja</b> - Japanese.</li>\n<li><b>pt</b> - Portuguese.</li>\n<li><b>zh</b> - Simplified Chinese.</li>\n</ul>",
+                        "type": "string",
+                        "default": "en",
+                        "enum": [
+                            "en",
+                            "es",
+                            "ja",
+                            "pt",
+                            "zh"
+                        ]
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions must be at least 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response include the extracted features in JSON format.\n<p/>Here is the definitions for enumeration types\n<br/>\n<b>ClipartType</b>\n<ul>\n<li>Non-clipart = 0, </li>\n<li> ambiguous = 1,</li>\n<li> normal-clipart = 2,</li>\n<li> good-clipart = 3.</li>\n</ul>\n<br/><b>LineDrawingType</b>\n<ul>\n<li>Non-LineDrawing = 0,</li>\n<li>LineDrawing = 1.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n  \"categories\": [\n    {\n      \"name\": \"abstract_\",\n      \"score\": 0.00390625\n    },\n    {\n      \"name\": \"people_\",\n      \"score\": 0.83984375,\n      \"detail\": {\n        \"celebrities\": [\n          {\n            \"name\": \"Satya Nadella\",\n            \"faceRectangle\": {\n              \"left\": 597,\n              \"top\": 162,\n              \"width\": 248,\n              \"height\": 248\n            },\n            \"confidence\": 0.999028444\n          }\n        ],\n        \"landmarks\":[\n          {\n            \"name\":\"Forbidden City\",\n            \"confidence\": 0.9978346\n          }\n        ]\n      }\n    }\n  ],\n  \"adult\": {\n    \"isAdultContent\": false,\n    \"isRacyContent\": false,\n    \"isGoryContent\": false,\n    \"adultScore\": 0.0934349000453949,\n    \"racyScore\": 0.068613491952419281,\n    \"goreScore\": 0.08928389008070282\n  },\n  \"tags\": [\n    {\n      \"name\": \"person\",\n      \"confidence\": 0.98979085683822632\n    },\n    {\n      \"name\": \"man\",\n      \"confidence\": 0.94493889808654785\n    },\n    {\n      \"name\": \"outdoor\",\n      \"confidence\": 0.938492476940155\n    },\n    {\n      \"name\": \"window\",\n      \"confidence\": 0.89513939619064331\n    }\n  ],\n  \"description\": {\n    \"tags\": [\n      \"person\",\n      \"man\",\n      \"outdoor\",\n      \"window\",\n      \"glasses\"\n    ],\n    \"captions\": [\n      {\n        \"text\": \"Satya Nadella sitting on a bench\",\n        \"confidence\": 0.48293603002174407\n      }\n    ]\n  },\n  \"requestId\": \"0dbec5ad-a3d3-4f7e-96b4-dfd57efe967d\",\n  \"metadata\": {\n    \"width\": 1500,\n    \"height\": 1000,\n    \"format\": \"Jpeg\"\n  },\n  \"faces\": [\n    {\n      \"age\": 44,\n      \"gender\": \"Male\",\n      \"faceRectangle\": {\n        \"left\": 593,\n        \"top\": 160,\n        \"width\": 250,\n        \"height\": 250\n      }\n    }\n  ],\n  \"color\": {\n    \"dominantColorForeground\": \"Brown\",\n    \"dominantColorBackground\": \"Brown\",\n    \"dominantColors\": [\n      \"Brown\",\n      \"Black\"\n    ],\n    \"accentColor\": \"873B59\",\n    \"isBWImg\": false\n  },\n  \"imageType\": {\n    \"clipArtType\": 0,\n    \"lineDrawingType\": 0\n  },\n  \"objects\": [\n    {\n      \"rectangle\": {\n        \"x\": 25,\n        \"y\": 43,\n        \"w\": 172,\n        \"h\": 140\n      },\n      \"object\": \"person\",\n      \"confidence\": 0.931\n    }\n  ]\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>NotSupportedVisualFeature</b>\n<br/>Specified feature type is not valid.</li>\n<li><b>NotSupportedImage</b>\n<br/>Unsupported image, e.g. child pornography.</li>\n<li><b>InvalidDetails</b>\n<br/>Unsupported domain-specific model.</li>\n<li><b>NotSupportedLanguage</b>\n<br/>The requested operation is not supported in the language specified.</li>\n<li><b>BadArgument</b>\n<br/>Additional details are provided in the error message.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}\n"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n        \"code\":\"BadArgument\",\n        \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not extract image features\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/describe": {
+            "post": {
+                "description": "This operation generates a description of an image in human readable language with complete sentences.  The description is based on a collection of content tags, which are also returned by the operation. More than one description can be generated for each image.  Descriptions are ordered by their confidence score. All descriptions are in English.\n        <br>\n        <br>\n        Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.  \n        <br>\n        <br>\n        A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong. \n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "56f91f2e778daf14a499f21f",
+                "summary": "Describe Image",
+                "parameters": [
+                    {
+                        "name": "maxCandidates",
+                        "in": "query",
+                        "description": "Maximum number of candidate descriptions to be returned.  The default is 1.",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            "1"
+                        ]
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "A string indicating the language in which the service will return a description of the image. If this parameter is not specified, the default value is &quot;en&quot;.<br />\nSupported languages:\n<ul>\n<li><b>en</b> - English, Default.</li>\n<li><b>es</b> - Spanish.</li>\n<li><b>ja</b> - Japanese.</li>\n<li><b>pt</b> - Portuguese.</li>\n<li><b>zh</b> - Simplified Chinese.</li>\n</ul>",
+                        "type": "string",
+                        "default": "en",
+                        "enum": [
+                            "en",
+                            "es",
+                            "ja",
+                            "pt",
+                            "zh"
+                        ]
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions should be greater than 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": "{\n  \"description\": {\n    \"tags\": [\n      \"person\",\n      \"man\",\n      \"outdoor\",\n      \"window\",\n      \"glasses\"\n    ],\n    \"captions\": [\n      {\n        \"text\": \"Satya Nadella sitting on a bench\",\n        \"confidence\": 0.48293603002174407\n      },\n      {\n        \"text\": \"Satya Nadella is sitting on a bench\",\n        \"confidence\": 0.40037006815422832\n      },\n      {\n        \"text\": \"Satya Nadella sitting in front of a building\",\n        \"confidence\": 0.38035155997373377\n      }\n    ]\n  },\n  \"requestId\": \"ed2de1c6-fb55-4686-b0da-4da6e05d283f\",\n  \"metadata\": {\n    \"width\": 1500,\n    \"height\": 1000,\n    \"format\": \"Jpeg\"\n  }\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>NotSupportedImage</b>\n<br/>Unsupported image, e.g. child pornography.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}\n"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}\n"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not extract image features\"\n}\n"
+                        }
+                    }
+                }
+            }
+        },
+        "/detect": {
+            "post": {
+                "description": "This operation Performs object detection on the specified image. \n        <br>\n        <br>\n        Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL. \n        <br>\n        <br>\n        A successful response will be returned in JSON. If the request failed, the response will contain an error code and a message to help understand what went wrong.\n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "5e0cdeda77a84fcd9a6d4e1b",
+                "summary": "Detect Objects",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions must be at least 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response includes the detected objects in JSON format.",
+                        "examples": {
+                            "application/json": "{\n  \"objects\": [\n    {\n      \"rectangle\": {\n        \"x\": 0,\n        \"y\": 0,\n        \"w\": 50,\n        \"h\": 50\n      },\n      \"object\": \"tree\",\n      \"confidence\": 0.9,\n      \"parent\": {\n        \"object\": \"plant\",\n        \"confidence\": 0.95\n      }\n    }\n  ],\n  \"requestId\": \"1ad0e45e-b7b4-4be3-8042-53be96103337\",\n  \"metadata\": {\n    \"width\": 100,\n    \"height\": 100,\n    \"format\": \" Jpeg\"\n  }\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>NotSupportedLanguage</b>\n<br/>The requested operation is not supported in the language specified.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}\n"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n        \"code\":\"BadArgument\",\n        \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not detect image objects\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/areaOfInterest": {
+            "post": {
+                "description": "This operation returns a bounding box around the most important area of the image.\n        <br>\n        <br>\n        A successful response will be returned in JSON.  Upon failure, the error code and an error message are returned. The error code could be one of InvalidImageUrl, InvalidImageFormat, InvalidImageSize, InvalidThumbnailSize, NotSupportedImage, FailedToProcess, Timeout, or InternalServerError.\n<h4>Http Method</h4>\nPOST",
+                "operationId": "b156d0f5e11e492d9f64418d",
+                "summary": "Get Area of Interest",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions must be at least 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response include the extracted area of interest in JSON format.",
+                        "examples": {
+                            "application/json": "{\n  \"areaOfInterest\": {\n    \"x\": 160,\n    \"y\": 0,\n    \"w\": 950,\n    \"h\": 951\n  },\n  \"requestId\": \"ed2de1c6-fb55-4686-b0da-4da6e05d283f\",\n  \"metadata\": {\n    \"width\": 1378,\n    \"height\": 951,\n    \"format\": \"Jpeg\"\n  }\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>BadArgument</b>\n<br/>Additional details are provided in the error message.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}\n"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not get image area of interest\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/read/analyzeResults/{operationId}": {
+            "get": {
+                "description": "Use this operation to retrieve the status and OCR result of a <a href=\"/docs/services/5d98695995feb7853f67d6a6/operations/5d986960601faab4bf452005\">Read</a> operation. The input is the 'operationId' from the 'Operation-Location' response header returned by the Read operation. In the following example from a Read operation result, the Operation Id is <b>49a36324-fc4b-4387-aa06-090cfbf0064f</b>, to be used as the ‘operationId’ parameter to the Get Read Results operation.\n",
+                "operationId": "5d9869604be85dee480c8750",
+                "summary": "Get Read Result",
+                "parameters": [
+                    {
+                        "name": "operationId",
+                        "in": "path",
+                        "description": "Id of the <a href=\"/docs/services/5d98695995feb7853f67d6a6/operations/5d986960601faab4bf452005\">Read</a> operation, contained in the Read operation's 'Operation-Location' response header.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JSON fields in the response body:\n<table class=\"element table\">\n  <thead>\n    <tr>\n      <th>Fields</th>\n      <th>Type</th>\n      <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n        <td>status</td>\n        <th>String</th>\n        <td>\n          Read operation status. Possible values:\n          <ul>\n              <li><b>notStarted</b>: The operation has not started.</li>\n              <li><b>running</b>: The operation is being processed.</li>\n              <li><b>failed</b>: The operation has failed.</li>\n              <li><b>succeeded</b>: The operation has succeeded.</li>\n          </ul>\n          If the status is <b>succeeded</b>, the response JSON will further include 'analyzeResult' containing the recognized text, organized as a hierarchy of pages of lines of words.\n        </td>\n    </tr>\n    <tr>\n      <td>createdDateTime</td>\n      <th>String</th>\n      <td>\n        The UTC date time the operation was submitted.\n      </td>\n    </tr>\n    <tr>\n      <td>lastUpdatedDateTime</td>\n      <th>String</th>\n      <td>\n        The UTC date time the operation status was last updated.\n      </td>\n    </tr>\n    <tr>\n        <td>analyzeResult</td>\n        <th>[Object]</th>\n        <td>Text recognition result of the Read operation.</td>\n    </tr>\n    <tr>\n      <td>readResults</td>\n      <th>[Object]</th>\n      <td>A list of extracted text result for each page in the input document.</td>\n    </tr>\n    <tr>\n      <td>lines</td>\n      <th>[Object]</th>\n      <td>\n        List of text lines. The lines are sorted top to bottom, left to right, although in certain cases proximity is treated with higher priority. As the sorting order depends on the detected text, it may change across images and OCR version updates. Thus, business logic should be built upon the actual line location instead of order.\n      </td>\n    </tr>\n    <tr>\n      <td>words</td>\n      <th>[Object]</th>\n      <td>List of words in the text line.</td>\n    </tr>\n    <tr>\n      <td>boundingBox</td>\n      <th>[Number]</th>\n      <td>\n        Quadrangle bounding box of a line or word, depending on the parent object, specified as a list of 8 numbers. The coordinates are specified relative to the top-left of the original image. The eight numbers represent the four points, clockwise from the top-left corner relative to the text orientation. For image, the (x, y) coordinates are measured in pixels. For PDF, the (x, y) coordinates are measured in inches.\n      </td>\n    </tr>\n    <tr>\n        <td>text</td>\n        <th>String</th>\n        <td>The text content of a line or word.</td>\n    </tr>\n    <tr>\n        <td>confidence</td>\n        <th>Number</th>\n        <td>Confidence value between 0 and 1 inclusive.</td>\n    </tr>\n    <tr>\n        <td>width</td>\n        <th>Number</th>\n        <td>The width of the image/PDF in pixels/inches, respectively.</td>\n    </tr>\n    <tr>\n        <td>height</td>\n        <th>Number</th>\n        <td>The height of the image/PDF in pixels/inches, respectively.</td>\n    </tr>\n    <tr>\n        <td>angle</td>\n        <th>Number</th>\n        <td>The general orientation of the text in clockwise direction, measured in degrees between (-180, 180].</td>\n    </tr>\n    <tr>\n        <td>page</td>\n        <th>Integer</th>\n        <td>The 1-based page number in the input document.</td>\n    </tr>\n    <tr>\n      <td>unit</td>\n      <th>String</th>\n      <td>The unit used by the width, height and boundingBox properties. For images, the unit is \"pixel\". For PDF, the unit is \"inch\".</td>\n    </tr>\n    <tr>\n      <td>language</td>\n      <th>String</th>\n      <td>The input language of the overall document.</td>\n    </tr>\n    <tr>\n      <td>appearance</td>\n      <th>Object</th>\n      <td>An object describing the style of the line along with the qualitative confidence score.</td>\n    </tr>\n    <tr>\n      <td>style</td>\n      <th>String</th>\n      <td>The general style of the line of text. Possible values:\n        <ul>\n          <li><b>handwriting</b>: handwritten styled text.</li>\n          <li><b>other</b>: other text styles.</li>\n        </ul>\n      </td>\n    <tr>\n      <td>styleConfidence</td>\n      <th>Number</th>\n      <td>Confidence value between 0 and 1 inclusive.</td>\n    </tr>\n    <tr>\n      <td>version</td>\n      <th>String</th>\n      <td>The version of schema used for this result.</td>\n    </tr>\n  </tbody>\n</table>",
+                        "examples": {
+                            "application/json": "{\n  \"status\": \"succeeded\",\n  \"createdDateTime\": \"2020-09-21T15:27:53Z\",\n  \"lastUpdatedDateTime\": \"2020-09-21T15:27:55Z\",\n  \"analyzeResult\": {\n      \"version\": \"3.1.0\",\n      \"readResults\": [\n          {\n              \"page\": 1,\n              \"angle\": 12.8345,\n              \"width\": 1254,\n              \"height\": 704,\n              \"unit\": \"pixel\",\n              \"lines\": [\n                  {\n                      \"boundingBox\": [\n                          145,\n                          0,\n                          1236,\n                          215,\n                          1225,\n                          272,\n                          134,\n                          55\n                      ],\n                      \"text\": \"Nutrition Facts Amount Per Serving\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 1.0\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  144,\n                                  0,\n                                  460,\n                                  57,\n                                  450,\n                                  112,\n                                  135,\n                                  57\n                              ],\n                              \"text\": \"Nutrition\",\n                              \"confidence\": 0.981\n                          },\n                          {\n                              \"boundingBox\": [\n                                  478,\n                                  61,\n                                  696,\n                                  105,\n                                  686,\n                                  158,\n                                  468,\n                                  116\n                              ],\n                              \"text\": \"Facts\",\n                              \"confidence\": 0.972\n                          },\n                          {\n                              \"boundingBox\": [\n                                  726,\n                                  112,\n                                  921,\n                                  155,\n                                  911,\n                                  203,\n                                  716,\n                                  164\n                              ],\n                              \"text\": \"Amount\",\n                              \"confidence\": 0.983\n                          },\n                          {\n                              \"boundingBox\": [\n                                  932,\n                                  157,\n                                  1020,\n                                  178,\n                                  1010,\n                                  225,\n                                  922,\n                                  206\n                              ],\n                              \"text\": \"Per\",\n                              \"confidence\": 0.983\n                          },\n                          {\n                              \"boundingBox\": [\n                                  1031,\n                                  180,\n                                  1233,\n                                  229,\n                                  1223,\n                                  272,\n                                  1021,\n                                  227\n                              ],\n                              \"text\": \"Serving\",\n                              \"confidence\": 0.977\n                          }\n                      ]\n                  },\n                  {\n                      \"boundingBox\": [\n                          110,\n                          67,\n                          598,\n                          159,\n                          589,\n                          203,\n                          102,\n                          107\n                      ],\n                      \"text\": \"Serving size: 1 bar (40g)\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 0.998\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  110,\n                                  67,\n                                  255,\n                                  93,\n                                  246,\n                                  133,\n                                  102,\n                                  106\n                              ],\n                              \"text\": \"Serving\",\n                              \"confidence\": 0.969\n                          },\n                          {\n                              \"boundingBox\": [\n                                  263,\n                                  94,\n                                  366,\n                                  114,\n                                  357,\n                                  154,\n                                  254,\n                                  134\n                              ],\n                              \"text\": \"size:\",\n                              \"confidence\": 0.984\n                          },\n                          {\n                              \"boundingBox\": [\n                                  374,\n                                  115,\n                                  400,\n                                  120,\n                                  390,\n                                  161,\n                                  364,\n                                  156\n                              ],\n                              \"text\": \"1\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  407,\n                                  122,\n                                  477,\n                                  136,\n                                  467,\n                                  177,\n                                  398,\n                                  163\n                              ],\n                              \"text\": \"bar\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  485,\n                                  137,\n                                  598,\n                                  161,\n                                  587,\n                                  203,\n                                  475,\n                                  179\n                              ],\n                              \"text\": \"(40g)\",\n                              \"confidence\": 0.983\n                          }\n                      ]\n                  },\n                  {\n                      \"boundingBox\": [\n                          82,\n                          115,\n                          553,\n                          208,\n                          544,\n                          254,\n                          73,\n                          159\n                      ],\n                      \"text\": \"Serving Per Package: 4\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 1.0\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  82,\n                                  115,\n                                  228,\n                                  143,\n                                  220,\n                                  190,\n                                  74,\n                                  158\n                              ],\n                              \"text\": \"Serving\",\n                              \"confidence\": 0.984\n                          },\n                          {\n                              \"boundingBox\": [\n                                  236,\n                                  144,\n                                  305,\n                                  158,\n                                  298,\n                                  206,\n                                  229,\n                                  191\n                              ],\n                              \"text\": \"Per\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  314,\n                                  159,\n                                  509,\n                                  200,\n                                  501,\n                                  246,\n                                  306,\n                                  208\n                              ],\n                              \"text\": \"Package:\",\n                              \"confidence\": 0.979\n                          },\n                          {\n                              \"boundingBox\": [\n                                  517,\n                                  202,\n                                  550,\n                                  210,\n                                  543,\n                                  254,\n                                  510,\n                                  248\n                              ],\n                              \"text\": \"4\",\n                              \"confidence\": 0.986\n                          }\n                      ]\n                  },\n                  {\n                      \"boundingBox\": [\n                          685,\n                          219,\n                          1000,\n                          288,\n                          990,\n                          332,\n                          677,\n                          260\n                      ],\n                      \"text\": \"Total Fat 13g\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 1.0\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  685,\n                                  219,\n                                  808,\n                                  244,\n                                  799,\n                                  286,\n                                  677,\n                                  260\n                              ],\n                              \"text\": \"Total\",\n                              \"confidence\": 0.983\n                          },\n                          {\n                              \"boundingBox\": [\n                                  816,\n                                  246,\n                                  910,\n                                  268,\n                                  899,\n                                  309,\n                                  807,\n                                  287\n                              ],\n                              \"text\": \"Fat\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  918,\n                                  270,\n                                  1000,\n                                  291,\n                                  988,\n                                  333,\n                                  907,\n                                  311\n                              ],\n                              \"text\": \"13g\",\n                              \"confidence\": 0.987\n                          }\n                      ]\n                  },\n                  {\n                      \"boundingBox\": [\n                          695,\n                          301,\n                          1119,\n                          396,\n                          1107,\n                          447,\n                          684,\n                          346\n                      ],\n                      \"text\": \"Saturated Fat 1.5g\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 1.0\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  694,\n                                  302,\n                                  915,\n                                  349,\n                                  904,\n                                  395,\n                                  685,\n                                  343\n                              ],\n                              \"text\": \"Saturated\",\n                              \"confidence\": 0.983\n                          },\n                          {\n                              \"boundingBox\": [\n                                  923,\n                                  351,\n                                  1007,\n                                  370,\n                                  995,\n                                  418,\n                                  912,\n                                  397\n                              ],\n                              \"text\": \"Fat\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  1015,\n                                  372,\n                                  1118,\n                                  397,\n                                  1106,\n                                  448,\n                                  1004,\n                                  420\n                              ],\n                              \"text\": \"1.5g\",\n                              \"confidence\": 0.983\n                          }\n                      ]\n                  },\n                  {\n                      \"boundingBox\": [\n                          25,\n                          218,\n                          491,\n                          312,\n                          480,\n                          363,\n                          16,\n                          262\n                      ],\n                      \"text\": \"Amount Per Serving\",\n                      \"appearance\": {\n                          \"style\": \"print\",\n                          \"styleConfidence\": 1.0\n                      },\n                      \"words\": [\n                          {\n                              \"boundingBox\": [\n                                  24,\n                                  219,\n                                  207,\n                                  253,\n                                  199,\n                                  296,\n                                  17,\n                                  257\n                              ],\n                              \"text\": \"Amount\",\n                              \"confidence\": 0.985\n                          },\n                          {\n                              \"boundingBox\": [\n                                  215,\n                                  254,\n                                  303,\n                                  272,\n                                  294,\n                                  318,\n                                  206,\n                                  297\n                              ],\n                              \"text\": \"Per\",\n                              \"confidence\": 0.987\n                          },\n                          {\n                              \"boundingBox\": [\n                                  311,\n                                  274,\n                                  490,\n                                  312,\n                                  480,\n                                  364,\n                                  301,\n                                  320\n                              ],\n                              \"text\": \"Serving\",\n                              \"confidence\": 0.983\n                          }\n                      ]\n                  }\n              ]\n          }\n      ]\n  }\n}"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found.  The operation ID is invalid or has expired.\n",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"BadArgument\", \n        \"message\": \"Operation ID is invalid or expired.\"\n    }\n}\n"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal service error.",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"Unspecified\", \n        \"message\": \"Internal server error.\"\n    }\n}"
+                        }
+                    },
+                    "503": {
+                        "description": "Service unavailable. A transient fault has occurred. Please try again later.",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"StorageException\", \n        \"message\": \"Transient faults occurred when dealing with Microsoft Azure storage services, please try it later.\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/generateThumbnail": {
+            "post": {
+                "description": "This operation generates a thumbnail image with the user-specified width and height.  By default, the service analyzes the image, identifies the region of interest (ROI), and generates smart cropping coordinates based on the ROI.  Smart cropping helps when you specify an aspect ratio that differs from that of the input image\n<p/>\nA successful response contains the thumbnail image binary.  If the request failed, the response contains an error code and a message to help determine what went wrong.\n\n<p/>\nUpon failure, the error code and an error message are returned. The error code could be one of InvalidImageUrl, InvalidImageFormat, InvalidImageSize, InvalidThumbnailSize, NotSupportedImage, FailedToProcess, Timeout, or InternalServerError.\n\n<h4>Http Method</h4>\nPOST\n",
+                "operationId": "56f91f2e778daf14a499f20c",
+                "summary": "Get Thumbnail",
+                "parameters": [
+                    {
+                        "name": "smartCropping",
+                        "in": "query",
+                        "description": "Boolean flag for enabling smart cropping.",
+                        "type": "boolean",
+                        "default": true,
+                        "enum": [
+                            true
+                        ]
+                    },
+                    {
+                        "name": "width",
+                        "in": "query",
+                        "description": "Width of the thumbnail.  It must be between 1 and 1024. Recommended minimum of 50.",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "height",
+                        "in": "query",
+                        "description": "Height of the thumbnail. It must be between 1 and 1024. Recommended minimum of 50.",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions should be greater than 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "image/jpeg",
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return thumbnail image.",
+                        "examples": {
+                            "image/jpeg": "[Binary image data]"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>InvalidThumbnailSize</b>\n<br/>Specified thumbnail size is not in allowed range.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>\n",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not extract image features\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/models": {
+            "get": {
+                "description": "This operation returns the list of domain-specific models that are supported by the Computer Vision API.  Currently, the API supports following domain-specific models: celebrity recognizer, landmark recognizer.\n        <br>\n        <br>\n        A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong. \n\n<h4>Http Method</h4>\nGET",
+                "operationId": "56f91f2e778daf14a499f20e",
+                "summary": "List Domain Specific Models",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": "{\n  \"models\": [\n    {\n      \"name\": \"celebrities\",\n      \"categories\": [\n        \"people_\"\n      ]\n    },\n    {\n      \"name\": \"landmarks\",\n      \"categories\": [\n        \"building_\"\n      ]\n    }\n  ]\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>Timeout</b>\n<br/>Request timed out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> \n",
+                        "examples": {
+                            "application/json": "{\n\t\"code\":\"InternalServerError\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Internal server error\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/ocr": {
+            "post": {
+                "description": "Optical Character Recognition (OCR) detects text in an image and extracts the recognized characters into a machine-usable character stream.   \n\n<p/>\nUpon success, the OCR results will be returned. \n<p/>\nUpon failure, the error code together with an error message will be returned. The error code can be one of InvalidImageUrl, InvalidImageFormat, InvalidImageSize, NotSupportedImage,  NotSupportedLanguage, or InternalServerError.\n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "56f91f2e778daf14a499f20d",
+                "summary": "OCR",
+                "parameters": [
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "The BCP-47 language code of the text to be detected in the image.The default value is &quot;unk&quot;, then the service will auto detect the language of the text in the image.<br />\n    <br />\n    Supported languages:\n    <ul style=\"margin-left:.375in;direction:ltr;unicode-bidi:embed;\n margin-top:0in;margin-bottom:0in\" type=\"disc\">\n        <li>unk (AutoDetect)</li>\n        <li>zh-Hans (ChineseSimplified)</li>\n        <li>zh-Hant (ChineseTraditional)</li>\n        <li>cs (Czech)</li>\n        <li>da (Danish)</li>\n        <li>nl (Dutch)</li>\n        <li>en (English)</li>\n        <li>fi (Finnish)</li>\n        <li>fr (French)</li>\n        <li>de (German)</li>\n        <li>el (Greek)</li>\n        <li>hu (Hungarian)</li>\n        <li>it (Italian)</li>\n        <li>ja (Japanese)</li>\n        <li>ko (Korean)</li>\n        <li>nb (Norwegian)</li>\n        <li>pl (Polish)</li>\n        <li>pt (Portuguese,</li>\n        <li>ru (Russian)</li>\n        <li>es (Spanish)</li>\n        <li>sv (Swedish)</li>\n        <li>tr (Turkish)</li>\n        <li>ar (Arabic)</li>\n        <li>ro (Romanian)</li>\n        <li>sr-Cyrl (SerbianCyrillic)</li>\n        <li>sr-Latn (SerbianLatin)</li>\n        <li>sk (Slovak)</li>\n</ul>",
+                        "type": "string",
+                        "default": "unk",
+                        "enum": [
+                            "unk",
+                            "zh-Hans",
+                            "zh-Hant",
+                            "cs",
+                            "da",
+                            "nl",
+                            "en",
+                            "fi",
+                            "fr",
+                            "de",
+                            "el",
+                            "hu",
+                            "it",
+                            "ja",
+                            "ko",
+                            "nb",
+                            "pl",
+                            "pt",
+                            "ru",
+                            "es",
+                            "sv",
+                            "tr",
+                            "ar",
+                            "ro",
+                            "sr-Cyrl",
+                            "sr-Latn",
+                            "sk"
+                        ]
+                    },
+                    {
+                        "name": "detectOrientation",
+                        "in": "query",
+                        "description": "Whether detect the text orientation in the image. With detectOrientation=true the OCR service tries to detect the image orientation and correct it before further processing (e.g. if it's upside-down).",
+                        "type": "boolean",
+                        "default": true,
+                        "enum": [
+                            true,
+                            false
+                        ]
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL.\n<br/>\n<br/>Input requirements:\n<ul>\n    <li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n    <li>Image file size must be less than 4MB.</li>\n    <li>Image dimensions must be between 50 x 50 and 4200 x 4200 pixels, and the image cannot be larger than 10 megapixels.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The OCR results in the hierarchy of region/line/word. The results include text, bounding box for regions, lines and words.\n<p/>\n<b>textAngle</b><br/>\nThe angle, in radians, of the detected text with respect to the closest horizontal or vertical direction. After rotating the input image clockwise by this angle, the recognized text lines become horizontal or vertical. In combination with the <b>orientation</b> property it can be used to overlay recognition results correctly on the original image, by rotating either the original image or recognition results by a suitable angle around the center of the original image. If the angle cannot be confidently detected, this property is not present. If the image contains text at different angles, only part of the text will be recognized correctly.\n<img src=\"https://oxfordportal.blob.core.windows.net/vision/doc-vision-overview-ocr01.png\"/>\n<p/><b>orientation</b><br/>\nOrientation of the text recognized in the image, if requested. The value (<b>up</b>, <b>down</b>, <b>left</b>, or <b>right</b>) refers to the direction that the top of the recognized text is facing, after the image has been rotated around its center according to the detected text angle (see <b>textAngle</b> property).<br/>\nIf detection of the orientation was not requested, or no text is detected, the value is 'NotDetected'.\n\n<p/><b>language</b><br/>\nThe BCP-47 language code (user-provided or auto-detected) of the text detected in the image.\n\n<p/><b>regions</b><br/>\nAn array of objects, where each object represents a region of recognized text. A region consists of multiple lines (e.g. a column of text in a multi-column document).\n\n<p/><b>lines</b><br/>\nAn array of objects, where each object represents a line of recognized text.\n\n<p/><b>words</b><br/>\nAn array of objects, where each object represents a recognized word.\n\n<p/><b>boundingBox</b><br/>\nBounding box of a recognized region, line, or word, depending on the parent object. The four integers represent the x-coordinate of the left edge, the y-coordinate of the top edge, width, and height of the bounding box, in the coordinate system of the input image, after it has been rotated around its center according to the detected text angle (see <b>textAngle</b> property), with the origin at the top-left corner, and the y-axis pointing down.\n\n<p/><b>text</b><br/>\nString value of a recognized word.\n",
+                        "examples": {
+                            "application/json": "{\n  \"language\": \"en\",\n  \"textAngle\": -2.0000000000000338,\n  \"orientation\": \"Up\",\n  \"regions\": [\n    {\n      \"boundingBox\": \"462,379,497,258\",\n      \"lines\": [\n        {\n          \"boundingBox\": \"462,379,497,74\",\n          \"words\": [\n            {\n              \"boundingBox\": \"462,379,41,73\",\n              \"text\": \"A\"\n            },\n            {\n              \"boundingBox\": \"523,379,153,73\",\n              \"text\": \"GOAL\"\n            },\n            {\n              \"boundingBox\": \"694,379,265,74\",\n              \"text\": \"WITHOUT\"\n            }\n          ]\n        },\n        {\n          \"boundingBox\": \"565,471,289,74\",\n          \"words\": [\n            {\n              \"boundingBox\": \"565,471,41,73\",\n              \"text\": \"A\"\n            },\n            {\n              \"boundingBox\": \"626,471,150,73\",\n              \"text\": \"PLAN\"\n            },\n            {\n              \"boundingBox\": \"801,472,53,73\",\n              \"text\": \"IS\"\n            }\n          ]\n        },\n        {\n          \"boundingBox\": \"519,563,375,74\",\n          \"words\": [\n            {\n              \"boundingBox\": \"519,563,149,74\",\n              \"text\": \"JUST\"\n            },\n            {\n              \"boundingBox\": \"683,564,41,72\",\n              \"text\": \"A\"\n            },\n            {\n              \"boundingBox\": \"741,564,153,73\",\n              \"text\": \"WISH\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors:\n<ul>\n    <li>\n        <b>InvalidImageUrl</b>\n        <br/>Image URL is badly formatted or not accessible.\n    </li>\n    <li>\n        <b>InvalidImageFormat</b>\n        <br/>Input data is not a valid image.\n    </li>\n    <li>\n        <b>InvalidImageSize</b>\n        <br/>Input image is too large.\n    </li>\n    <li>\n        <b>NotSupportedLanguage</b>\n        <br/>Specified language is not supported.\n    </li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"InvalidImageFormat\",\n    \"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n    \"message\":\"The input file is not in a valid image format that the service can support. \"\n}\n"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:\n<br/>\n<ul>\n    <li>For an image URL: Content-Type should be application/json</li>\n    <li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n    <li>\n        <b>FailedToProcess</b>\n        <br/>Failed to process the image.\n    </li>\n    <li>\n        <b>Timeout</b>\n        <br/>Image processing time out.\n    </li>\n    <li>\n        <b>InternalServerError</b>\n        <br/>Internal server error.\n    </li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"FailedToProcess\",\n    \"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n    \"message\":\"Could not extract image features\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/read/analyze": {
+            "post": {
+                "description": "Use this call to perform a Read operation. The Read API is optimized for text-heavy images and multi-page, mixed language, and mixed type (print – sixty-three languages and handwritten – English only) documents. The Read operation executes asynchronously. When you call the Read operation, the call returns with a response header called 'Operation-Location'. The 'Operation-Location' header contains a URL with the Operation Id to be used in the second step. In the second step, you use the <a href=\"/docs/services/5d98695995feb7853f67d6a6/operations/5d9869604be85dee480c8750\">Get Read Result</a> operation to fetch the detected text lines and words as part of the JSON response. The time for completion of the text extraction process depends on the volume of the text and the number of pages in the document.\n<br/><br/>\nSupported languages: The Read API is currently only available for Afrikaans, Albanian, Asturian, Basque, Bislama, Breton, Catalan, Cebuano, Cornish, Corsican, Czech, Danish, Dutch, English , Fijian, Filipino, French, Friulian, Galician, German, Gilbertese, Greenlandic, Haitian Creole, Hani, Hmong Daw, Hungarian, Indonesian, Interlingua, Inuktitut, Irish, Italian, Japanese, Javanese, Kabuverdianu, Kachin, Kara-Kalpak, Khasi, Korean, K’iche’, Luxembourgish, Malay, Manx, Neapolitan, Norwegian, Occitan, Polish, Portuguese, Romansh, Scots, Scottish Gaelic, simplified Chinese , Spanish, Swahili, Swedish, Tetum, traditional Chinese , Turkish, Uzbek, Volapük, Western Frisian, Yucatec Maya, Zhuang and Zulu.\n<br/><br/>",
+                "operationId": "5d986960601faab4bf452005",
+                "summary": "Read",
+                "parameters": [
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "The BCP-47 language code of the text in the document. Currently, only Afrikaans (‘af’), Albanian (‘sq’), Asturian (‘ast’), Basque (‘eu’), Bislama (‘bi’), Breton (‘br’), Catalan (‘ca’), Cebuano (‘ceb’), Chamorro (‘ch’), Cornish (‘kw’), Corsican (‘co’), Crimean Tatar - Latin script(‘crh’), Czech (‘cs’), Danish (‘da’), Dutch (‘nl’), English ('en'), Estonian (‘et’), Fijian (‘fj’), Filipino (‘fil’), Finnish (‘fi’), French (‘fr’), Friulian (‘fur’), Galician (‘gl’), German (‘de’), Gilbertese (‘gil’), Greenlandic (‘kl’), Haitian Creole (‘ht’), Hani (‘hni’), Hmong Daw (‘mww’), Hungarian (‘hu’), Indonesian (‘id’), Interlingua (‘ia’), Inuktitut (‘iu’), Irish (‘ga’), Italian (‘it’), Japanese (‘ja’), Javanese (‘jv’), Kabuverdianu (‘kea’), Kachin (‘kac’), Kara-Kalpak (‘kaa’), Kashubian (‘csb’), Khasi (‘kha’), Korean (‘ko’), Kurdish - Latin script (‘ku’), K’iche’ (‘quc’), Luxembourgish (‘lb’), Malay (‘ms’), Manx (‘gv’), Neapolitan (‘nap’), Norwegian (‘no’), Occitan (‘oc’), Polish (‘pl’), Portuguese (‘pt’), Romansh (‘rm’), Scots (‘sco’), Scottish Gaelic (‘gd’), simplified Chinese (‘zh-Hans’), Slovenian (‘sl’), Spanish (‘es’), Swahili (‘sw’), Swedish (‘sv’), Tatar - Latin script (‘tt’), Tetum (‘tet’), traditional Chinese (‘zh-Hant’), Turkish (‘tr’), Upper Sorbian (‘hsb’), Uzbek (‘uz’), Volapük (‘vo’), Walser (‘wae’), Western Frisian (‘fy’), Yucatec Maya (‘yua’), Zhuang (‘za’) and Zulu (‘zu’) are supported (print – seventy-three languages and handwritten – English only). Read supports auto language identification and multilanguage documents, so only provide a language code if you would like to force the documented to be processed as that specific language.",
+                        "type": "string",
+                        "enum": [
+                            "af",
+                            "ast",
+                            "bi",
+                            "br",
+                            "ca",
+                            "ceb",
+                            "ch",
+                            "co",
+                            "crh",
+                            "cs",
+                            "csb",
+                            "da",
+                            "de",
+                            "en",
+                            "es",
+                            "et",
+                            "eu",
+                            "fi",
+                            "fil",
+                            "fj",
+                            "fr",
+                            "fur",
+                            "fy",
+                            "ga",
+                            "gd",
+                            "gil",
+                            "gl",
+                            "gv",
+                            "hni",
+                            "hsb",
+                            "ht",
+                            "hu",
+                            "ia",
+                            "id",
+                            "it",
+                            "iu",
+                            "ja",
+                            "jv",
+                            "kaa",
+                            "kac",
+                            "kea",
+                            "kha",
+                            "kl",
+                            "ko",
+                            "ku",
+                            "kw",
+                            "lb",
+                            "ms",
+                            "mww",
+                            "nap",
+                            "nl",
+                            "no",
+                            "oc",
+                            "pl",
+                            "pt",
+                            "quc",
+                            "rm",
+                            "sco",
+                            "sl",
+                            "sq",
+                            "sv",
+                            "sw",
+                            "tet",
+                            "tr",
+                            "tt",
+                            "uz",
+                            "vo",
+                            "wae",
+                            "yua",
+                            "za",
+                            "zh-Hans",
+                            "zh-Hant",
+                            "zu"
+                        ]
+                    },
+                    {
+                        "name": "pages",
+                        "in": "query",
+                        "description": "The page selection only leveraged for multi-page PDF and TIFF documents. Accepted input include single pages (e.g.'1, 2' -> pages 1 and 2 will be processed), finite (e.g. '2-5' -> pages 2 to 5 will be processed) and open-ended ranges (e.g. '5-' -> all the pages from page 5 will be processed & e.g. '-10' -> pages 1 to 10 will be processed). All of these can be mixed together and ranges are allowed to overlap (eg. '-5, 1, 3, 5-10' - pages 1 to 10 will be processed). The service will accept the request if it can process at least one page of the document (e.g. using '5-100' on a 5 page document is a valid input where page 5 will be processed). If no page range is provided, the entire document will be processed.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "readingOrder",
+                        "in": "query",
+                        "description": "Optional parameter to specify which reading order algorithm should be applied when ordering the extract text elements. Can be either 'basic' or 'natural'. Will default to basic if not specified",
+                        "type": "string",
+                        "enum": [
+                            "basic",
+                            "natural"
+                        ]
+                    },
+                    {
+                        "name": "imageUrl",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ImageUrl"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL.\n<br/>\n<br/>Input requirements:\n<ul>\n    <li>Supported image formats: JPEG, PNG, BMP, PDF and TIFF. </li>\n    <li>Please do note MPO (Multi Picture Objects) embedded JPEG files are not supported.</li>\n    <li>\n        For multi-page PDF and TIFF documents:\n        <ul>\n            <li>For the free tier, only the first 2 pages are processed.</li>\n            <li>For the paid tier, up to 2,000 pages are processed.</li>\n        </ul>\n    </li>\n    <li>Image file size must be less than 50 MB (4 MB for the free tier).</li>\n    <li>The image/document page dimensions must be at least 50 x 50 pixels and at most 10000 x 10000 pixels.</li>\n    <li>The PDF file dimensions must be at most 17 x 17 inches, corresponding to Legal or A3 paper sizes and smaller.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "The service has accepted the request and will start processing soon. The client can query the operation status and result by using the Operation Id from the 'Operation-Location' response header value, a URL. In the following example, the Operation Id is 49a36324-fc4b-4387-aa06-090cfbf0064f, to be used as the ‘operationId’ parameter to the Get Read Results operation, The URL expires in 24 hours.\n<br/>\n<table class=\"element table\">\n    <thead/>\n    <tbody>\n        <tr>\n            <td>\n                <b>Operation-Location</b>\n            </td>\n            <td>\n                Operation status and result URL.\n                <br/>\n                Example: https://cognitiveservice/vision/v3.2-preview.3/read/analyzeResults/49a36324-fc4b-4387-aa06-090cfbf0064f\n            </td>\n        </tr>\n    </tbody>\n</table>\n<br/>\nSample Response Header:\n<p><code>Content-Length: 0\nOperation-Location: https://japaneast.api.cognitive.microsoft.com/vision/v3.2-preview.3/read/analyzeResults/08f557b9-c915-4c0d-a1ba-4648a4405195\nCSP-Billing-Usage: CognitiveServices.ComputerVision.Transaction=1\napim-request-id: 08f557b9-c915-4c0d-a1ba-4648a4405195\nDate: Fri, 04 Sep 2020 10:11:18 GMT\n</code></p>"
+                    },
+                    "400": {
+                        "description": "Bad request.  The error code and message are returned in the JSON:\n<table class=\"element table\">\n    <thead>\n        <tr>\n            <th>Error Code</th>\n            <th>Description</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td>BadArgument</td>\n            <td>Unsupported media type.</td>\n        </tr>\n        <tr>\n            <td>BadArgument</td>\n            <td>Bad or unrecognizable request JSON or binary file.</td>\n        </tr>\n        <tr>\n            <td>InvalidImageURL</td>\n            <td>Image URL is badly formatted.</td>\n        </tr>\n        <tr>\n            <td>FailedToDownloadImage</td>\n            <td>Failed to download image from input URL.</td>\n        </tr>\n        <tr>\n            <td>InvalidImage</td>\n            <td>The input data is not a valid image or password protected.</td>\n        </tr>\n        <tr>\n            <td>UnsupportedImageFormat</td>\n            <td>Image format unsupported. Supported formats include JPEG, PNG, BMP, PDF and TIFF.</td>\n        </tr>\n        <tr>\n            <td>InvalidImageSize</td>\n            <td>The input image is too large. It should not be larger than 50MB.</td>\n        </tr>\n        <tr>\n            <td>InvalidImageDimension</td>\n            <td>\n                The input image dimension is out of range. The minimum image/document page dimension is 50 x 50 pixels and the maximum is 10000 x 10000 pixels. The maximum PDF dimension is 17 x 17 inches.\n            </td>\n        </tr>\n        <tr>\n            <td>InvalidReadingOrder</td>\n            <td>\n                The specified Reading Order is invalid.\n            </td>\n        </tr>\n        <tr>\n            <td>InvalidPageRange</td>\n            <td>\n                The specified Pages parameter is invalid. Please see returned error for more details.\n            </td>\n        </tr>\n    </tbody>\n</table>",
+                        "examples": {
+                            "application/json": "{ \n    \"error\": {\n        \"code\": \"BadArgument\", \n        \"message\": \"Invalid input.\"\n    }\n}"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type. 'Content-Type' does not match the content of the POST request.\n<br/>\n<ul>\n    <li>For image URL, 'Content-Type' should be application/json.</li>\n    <li>For binary image data, 'Content-Type' should be application/octet-stream.</li>\n</ul>\n<br/>",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"BadArgument\",\n        \"message\": \"Unsupported media type.\"\n    }\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Returns 500 if there's any internal error.",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"Unspecified\", \n        \"message\": \"Internal server error.\"\n    }\n}"
+                        }
+                    },
+                    "503": {
+                        "description": "Returns 503 if transient faults occurred when dealing with Microsoft Azure storage services.",
+                        "examples": {
+                            "application/json": "{\n    \"error\": {\n        \"code\": \"StorageException\", \n        \"message\": \"Transient faults occurred when dealing with Microsoft Azure storage services, please try it later.\"\n    }\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/models/{model}/analyze": {
+            "post": {
+                "description": "This operation recognizes content within an image by applying a domain-specific model.  The list of domain-specific models that are supported by the Computer Vision API can be retrieved using the /models GET request.  Currently, the API provides following domain-specific models: celebrities, landmarks.\n        <br>\n        <br>\n        Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.  \n        <br>\n        <br>\n        A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong. \n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "56f91f2e778daf14a499f311",
+                "summary": "Recognize Domain Specific Content",
+                "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "description": "The domain-specific content to recognize.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "A string indicating the language in which to return analysis results, if supported. If this parameter is not specified, the default value is &quot;en&quot;.<br />\nPossible language values:\n<ul>\n<li><b>en</b> - English, Default.</li>\n<li><b>es</b> - Spanish.</li>\n<li><b>ja</b> - Japanese.</li>\n<li><b>pt</b> - Portuguese.</li>\n<li><b>zh</b> - Simplified Chinese.</li>\n</ul>",
+                        "type": "string",
+                        "default": "en",
+                        "enum": [
+                            "en",
+                            "es",
+                            "ja",
+                            "pt",
+                            "zh"
+                        ]
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions should be greater than 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": "{\n  \"requestId\": \"f0027b4b-dc0d-4082-9228-1545ed246b03\",\n  \"metadata\": {\n    \"width\": 1500,\n    \"height\": 1000,\n    \"format\": \"Jpeg\"\n  },\n  \"result\": {\n    \"celebrities\": [\n      {\n        \"name\": \"Satya Nadella\",\n        \"faceRectangle\": {\n          \"left\": 597,\n          \"top\": 162,\n          \"width\": 248,\n          \"height\": 248\n        },\n        \"confidence\": 0.999028444\n      }\n    ]\n  }\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>NotSupportedImage</b>\n<br/>Unsupported image, e.g. child pornography.</li>\n<li><b>BadArgument</b>\n<br/>Unsupported domain-specific model.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>\n",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not extract image features\"\n}"
+                        }
+                    }
+                }
+            }
+        },
+        "/tag": {
+            "post": {
+                "description": "This operation generates a list of words, or tags, that are relevant to the content of the supplied image. The Computer Vision API can return tags based on objects, living beings, scenery or actions found in images. Unlike categories, tags are not organized according to a hierarchical classification system, but correspond to image content. Tags may contain hints to avoid ambiguity or provide context, for example the tag \"ascomycete\" may be accompanied by the hint \"fungus\".\n        <br>\n        <br>\n        Two input methods are supported -- (1) Uploading an image or (2) specifying an image URL.  \n        <br>\n        <br>\n        A successful response will be returned in JSON.  If the request failed, the response will contain an error code and a message to help understand what went wrong. \n\n<h4>Http Method</h4>\nPOST",
+                "operationId": "56f91f2e778daf14a499f200",
+                "summary": "Tag Image",
+                "parameters": [
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "A string indicating the language in which to return tags. If this parameter is not specified, the default value is &quot;en&quot;.<br />\nSupported languages:\n<ul>\n<li><b>en</b> - English, Default.</li>\n<li><b>es</b> - Spanish.</li>\n<li><b>ja</b> - Japanese.</li>\n<li><b>pt</b> - Portuguese.</li>\n<li><b>zh</b> - Simplified Chinese.</li>\n</ul>",
+                        "type": "string",
+                        "default": "en",
+                        "enum": [
+                            "en",
+                            "es",
+                            "ja",
+                            "pt",
+                            "zh"
+                        ]
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "example": "[Binary image data]"
+                        },
+                        "description": "Input passed within the POST body. Supported input methods: raw image binary or image URL. \n<br/>\n<br/>Input requirements: \n<ul>\n<li>Supported image formats: JPEG, PNG, GIF, BMP. </li>\n<li>Image file size must be less than 4MB.</li>\n<li>Image dimensions should be greater than 50 x 50.</li>\n</ul>"
+                    }
+                ],
+                "consumes": [
+                    "application/json",
+                    "application/octet-stream",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "examples": {
+                            "application/json": "{\n  \"tags\": [\n    {\n      \"name\": \"grass\",\n      \"confidence\": 0.9999997615814209\n    },\n    {\n      \"name\": \"outdoor\",\n      \"confidence\": 0.99997067451477051\n    },\n    {\n      \"name\": \"sky\",\n      \"confidence\": 0.99928975105285645\n    },\n    {\n      \"name\": \"building\",\n      \"confidence\": 0.99646323919296265\n    },\n    {\n      \"name\": \"house\",\n      \"confidence\": 0.99279803037643433\n    },\n    {\n      \"name\": \"lawn\",\n      \"confidence\": 0.82268029451370239\n    },\n    {\n      \"name\": \"green\",\n      \"confidence\": 0.64122253656387329\n    },\n    {\n      \"name\": \"residential\",\n      \"confidence\": 0.31403225660324097\n    }\n  ],\n  \"requestId\": \"1ad0e45e-b7b4-4be3-8042-53be96103337\",\n  \"metadata\": {\n    \"width\": 400,\n    \"height\": 400,\n    \"format\": \"Jpeg\"\n  }\n}"
+                        }
+                    },
+                    "400": {
+                        "description": "Possible Errors: \n<ul>\n<li><b>InvalidImageUrl</b>\n<br/>Image URL is badly formatted or not accessible.\n</li>\n<li><b>InvalidImageFormat</b>\n<br/>Input data is not a valid image.</li>\n<li><b>InvalidImageSize</b>\n<br/>Input image is too large.</li>\n<li><b>NotSupportedImage</b>\n<br/>Unsupported image, e.g. child pornography.</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"InvalidImageFormat\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"The input file is not in a valid image format that the service can support. \"\n}"
+                        }
+                    },
+                    "415": {
+                        "description": "Unsupported media type error. Content-Type is not in the allowed types:<br/>\n<ul>\n<li>For an image URL: Content-Type should be application/json</li>\n<li>For a binary image data: Content-Type should be application/octet-stream or multipart/form-data</li>\n</ul>",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"BadArgument\",\n    \"message\":\"Invalid Media Type\"\n}"
+                        }
+                    },
+                    "500": {
+                        "description": "Possible Errors:\n<ul>\n<li><b>FailedToProcess</b>\n<br/>Failed to process the image.</li>\n<li><b>Timeout</b>\n<br/>Image processing time out.</li>\n<li><b>InternalServerError</b>\n<br/>Internal server error.</li>\n</ul> ",
+                        "examples": {
+                            "application/json": "{\n    \"code\":\"FailedToProcess\",\n\t\"requestId\":\"B8D802CF-DD8F-4E61-B15C-9E6C5844CCBC\",\n\t\"message\":\"Could not extract image features\"\n}"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ImageUrl": {
+            "required": [
+                "url"
+            ],
+            "type": "object",
+            "properties": {
+                "url": {
+                    "description": "Publicly reachable URL of an image.",
+                    "type": "string"
+                }
+            },
+            "example": "{\"url\":\"https://intelligentkioskstore.blob.core.windows.net/visionapi/suggestedphotos/3.png\"}"
+        }
+    },
+    "tags": []
+}
