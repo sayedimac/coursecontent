@@ -1,0 +1,14 @@
+hosts: [REPLACE WITH YOUR COSMOS DB ACCOUNT NAME.gremlin.cosmosdb.azure.com]
+port: 443
+username: /dbs/cosmicworks/colls/products
+password: "REPLACE WITH YOUR PRIMARY KEY"
+connectionPool: {
+  enableSsl: true,
+  sslEnabledProtocols: [TLSv1.2]
+}
+serializer: {
+  className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV2d0,
+  config: {
+    serializeResultToString: true
+  }
+}
