@@ -1,3 +1,3 @@
-# Some content for the Azure training!
+# Some content for Azure training and services!
 
-THere are some scripts and other files we might use in my trianing
+There are some scripts and othercontent I use in my training
