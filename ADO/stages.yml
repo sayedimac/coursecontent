@@ -1,0 +1,71 @@
+# trigger:
+# - main
+
+resources:
+  repositories:
+    - repository: AlwaysOnSecure
+      type: git
+      name: AlwaysOnSecure/AlwaysOnSecure #name of the project and repository
+
+variables:
+  - template: eshoponweb-secure-variables.yml@AlwaysOnSecure
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+# Build Stage
+- stage: Build_Stage
+  displayName: Build Infrastructure
+  jobs:
+  - job: Build
+    steps:
+    - script: echo Building
+
+- stage: Dev_Stage
+  dependsOn: Build_Stage
+  jobs:
+  - deployment: Dev
+    pool: 
+      vmImage: 'ubuntu-latest'
+    environment: Dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello world! Dev environment!
+  - job: Dev_Job
+    steps:
+    - script: echo Dev
+
+- stage: Test_Stage
+  dependsOn: Dev_Stage
+  jobs:
+  - deployment: Test
+    pool: 
+      vmImage: 'ubuntu-latest'
+    environment: Test
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello world! Testing environment!
+  - job: Testing
+    steps:
+    - script: echo Testing
+
+- stage: Production_Stage
+  dependsOn: Test_Stage
+  jobs:
+  - deployment: Production
+    pool: 
+      vmImage: 'ubuntu-latest'
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello world! Production environment!
+  - job: Deploy
+    steps:
+    - script: echo Deploy
