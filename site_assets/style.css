@@ -63,9 +63,22 @@ body {
   align-items: center;
 }
 
+.course-list .accordion-button > .d-flex {
+  flex: 1;
+  min-width: 0;
+}
+
+.course-list .accordion-button > .badge {
+  flex-shrink: 0;
+}
+
+.course-list .accordion-button::after {
+  margin-left: 0;
+}
+
 .course-code {
   color: #5c636a;
-  font-size: .75rem;
+  font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
