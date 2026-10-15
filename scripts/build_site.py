@@ -47,7 +47,7 @@ PAGE = """<!doctype html>
 </nav>
 <main class="container-xl flex-grow-1 py-4 py-lg-5">{body}</main>
 <footer class="border-top py-3">
-<div class="container-xl text-body-secondary small">Course Catalogue</div>
+<div class="container-xl text-body-secondary small">Some Courses...</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="catalogue.js"></script>
