@@ -33,7 +33,7 @@ PAGE = """<!doctype html>
 <body class="d-flex min-vh-100 flex-column">
 <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm" aria-label="Main navigation">
 <div class="container-xl">
-<a class="navbar-brand fw-semibold" href="./">ESI Course Catalogue</a>
+<a class="navbar-brand fw-semibold" href="./">Course Catalogue</a>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -47,7 +47,7 @@ PAGE = """<!doctype html>
 </nav>
 <main class="container-xl flex-grow-1 py-4 py-lg-5">{body}</main>
 <footer class="border-top py-3">
-<div class="container-xl text-body-secondary small">ESI Course Catalogue</div>
+<div class="container-xl text-body-secondary small">Course Catalogue</div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="catalogue.js"></script>
@@ -162,7 +162,7 @@ def main():
         f"<div class='col-lg-8 col-xl-9'><div class='tab-content'>{panes}</div></div>"
         "</div>"
     )
-    (OUT / "index.html").write_text(PAGE.format(title="ESI Course Catalogue", body=body), encoding="utf-8")
+    (OUT / "index.html").write_text(PAGE.format(title="Course Links", body=body), encoding="utf-8")
     (OUT / ".nojekyll").write_text("")
     print(f"Built catalogue of {len(courses)} courses in {len(areas)} areas into {OUT}")
 
