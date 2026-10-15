@@ -15,12 +15,36 @@ OUT = ROOT / "_site"
 ASSETS = ROOT / "site_assets"
 
 PAGE = """<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
-<link rel="stylesheet" href="{root}style.css"></head>
-<body><header><a href="{root}">ESI Course Catalogue</a></header>
-<main>{body}</main></body></html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{root}style.css">
+</head>
+<body class="d-flex min-vh-100 flex-column">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm" aria-label="Main navigation">
+<div class="container-xl">
+<a class="navbar-brand fw-semibold" href="{root}">ESI Course Catalogue</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="mainNavigation">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="{root}">Courses</a></li>
+<li class="nav-item"><a class="nav-link" href="https://learn.microsoft.com/training/" target="_blank" rel="noopener">Microsoft Learn</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<main class="container-xl flex-grow-1 py-4 py-lg-5">{body}</main>
+<footer class="border-top py-3">
+<div class="container-xl text-body-secondary small">ESI Course Catalogue</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 """
 
 
@@ -38,10 +62,11 @@ def parse(path):
     return meta
 
 
-def link(url, label):
+def link(url, label, classes=""):
     if not url:
         return ""
-    return f'<li><a href="{html.escape(url)}">{label}</a></li>'
+    class_attr = f' class="{classes}"' if classes else ""
+    return f'<a href="{html.escape(url)}"{class_attr} target="_blank" rel="noopener">{label}</a>'
 
 
 def render_body(body):
@@ -61,12 +86,21 @@ def main():
     for c in courses:
         d = OUT / c["slug"]
         d.mkdir()
-        labs = link(c.get("labs_url"), "Hands-on labs (GitHub)") or "<li>No labs for this course</li>"
+        learn = link(c.get("learn_url"), "Course on Microsoft Learn", "btn btn-primary")
+        labs = link(c.get("labs_url"), "Hands-on labs (GitHub)", "btn btn-outline-primary")
+        actions = learn + labs or '<span class="text-body-secondary">No external resources for this course.</span>'
         body = (
-            f"<h1>{html.escape(c['title'])}</h1>"
-            f"<p class='meta'>{html.escape(c['code'])} &middot; {html.escape(c['area'])}</p>"
-            f"{render_body(c['body'])}<ul>{link(c.get('learn_url'), 'Course on Microsoft Learn')}{labs}</ul>"
-            "<p><a href='../'>&larr; All courses</a></p>"
+            "<article class='content-narrow'>"
+            "<nav aria-label='Breadcrumb'><ol class='breadcrumb mb-4'>"
+            "<li class='breadcrumb-item'><a href='../'>Courses</a></li>"
+            f"<li class='breadcrumb-item active' aria-current='page'>{html.escape(c['code'])}</li>"
+            "</ol></nav>"
+            f"<span class='badge text-bg-light border mb-2'>{html.escape(c['code'])}</span>"
+            f"<h1 class='display-6 fw-bold'>{html.escape(c['title'])}</h1>"
+            f"<p class='lead text-body-secondary'>{html.escape(c['area'])}</p>"
+            f"<div class='course-description'>{render_body(c['body'])}</div>"
+            f"<div class='course-actions d-flex flex-column flex-sm-row flex-wrap gap-2 mt-4'>{actions}</div>"
+            "</article>"
         )
         (d / "index.html").write_text(
             PAGE.format(title=html.escape(c["title"]), root="../", body=body), encoding="utf-8"
@@ -76,15 +110,35 @@ def main():
     for c in courses:
         areas.setdefault(c["area"], []).append(c)
     sections = ""
-    for area in sorted(areas):
+    for index, area in enumerate(sorted(areas)):
+        area_id = f"area-{index}"
         items = "".join(
-            f"<li><a href='{c['slug']}/'>{html.escape(c['title'])}</a> "
-            f"<span class='code'>{html.escape(c['code'])}</span></li>"
+            "<div class='col'><div class='card course-card h-100 shadow-sm'>"
+            "<div class='card-body d-flex flex-column'>"
+            f"<span class='course-code mb-2'>{html.escape(c['code'])}</span>"
+            f"<h3 class='h5 card-title'><a class='stretched-link' href='{c['slug']}/'>"
+            f"{html.escape(c['title'])}</a></h3>"
+            "</div></div></div>"
             for c in areas[area]
         )
-        sections += f"<h2>{html.escape(area)}</h2><ul class='courses'>{items}</ul>"
+        sections += (
+            f"<section class='course-section mb-5' aria-labelledby='{area_id}'>"
+            f"<h2 class='h3 mb-3' id='{area_id}'>{html.escape(area)}</h2>"
+            f"<div class='row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3'>{items}</div>"
+            "</section>"
+        )
     (OUT / "index.html").write_text(
-        PAGE.format(title="ESI Course Catalogue", root="", body="<h1>Course catalogue</h1>" + sections),
+        PAGE.format(
+            title="ESI Course Catalogue",
+            root="./",
+            body=(
+                "<header class='catalogue-hero rounded-4 p-4 p-md-5 mb-5'>"
+                "<h1 class='display-5 fw-bold'>Course catalogue</h1>"
+                "<p class='lead mb-0'>Browse courses by subject area and find learning resources.</p>"
+                "</header>"
+                + sections
+            ),
+        ),
         encoding="utf-8",
     )
     (OUT / ".nojekyll").write_text("")
