@@ -1,0 +1,8 @@
+body{margin:0;font-family:Segoe UI,system-ui,sans-serif;color:#222;line-height:1.5}
+header{background:#0078d4;padding:12px 24px}
+header a{color:#fff;font-weight:600;text-decoration:none}
+main{max-width:820px;margin:24px auto;padding:0 16px}
+a{color:#0067b8}
+.meta,.code{color:#666;font-size:.9em}
+ul.courses{padding-left:20px}
+ul.courses li{margin:6px 0}
