@@ -90,6 +90,15 @@ def render_course(c, parent_id):
         f"<span class='badge {LEVEL_BADGES.get(level.lower(), 'text-bg-secondary')} ms-auto me-2'>{e(level)}</span>"
         if level else ""
     )
+    labs_icon = (
+        "<svg class='ms-1' width='1em' height='1em' viewBox='0 0 24 24' "
+        "fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' "
+        "stroke-linejoin='round' role='img' aria-label='Hands-on labs available'>"
+        "<title>Hands-on labs available</title>"
+        "<path d='M9 3h6m-5 0v7l-5 9a1 1 0 0 0 .9 1.5h12.2a1 1 0 0 0 .9-1.5l-5-9V3M8 14h8'/>"
+        "</svg>"
+        if c.get("labs_url") else ""
+    )
     details = "".join(
         f"<dt class='col-sm-3'>{label}</dt><dd class='col-sm-9'>{e(c[key])}</dd>"
         for key, label in (("level", "Level"), ("duration", "Duration"), ("audience", "Audience"))
@@ -107,7 +116,7 @@ def render_course(c, parent_id):
         f"<h3 class='accordion-header'><button class='accordion-button collapsed gap-2' type='button' "
         f"data-bs-toggle='collapse' data-bs-target='#{item_id}' aria-expanded='false' aria-controls='{item_id}'>"
         f"<span class='d-flex flex-column'><span class='course-code'>{e(c['code'])}</span>"
-        f"<span class='fw-semibold'>{e(c['title'])}</span></span>{level_badge}</button></h3>"
+        f"<span class='fw-semibold'>{e(c['title'])}{labs_icon}</span></span>{level_badge}</button></h3>"
         f"<div id='{item_id}' class='accordion-collapse collapse' data-bs-parent='#{parent_id}'>"
         f"<div class='accordion-body'>{render_body(c['body'])}{details}"
         f"<div class='d-flex flex-column flex-sm-row flex-wrap gap-2'>{actions}</div>"

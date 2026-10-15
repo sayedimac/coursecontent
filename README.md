@@ -11,3 +11,5 @@ The URL uses the course filename without `.md` as its fragment, for example
 `https://sayedimac.github.io/coursecontent/#ab-620`.
 Opening the link selects the course's area and expands its details.
 Existing area links such as `#area-0` continue to work.
+
+A flask icon beside a course title indicates that a hands-on labs link is available.
