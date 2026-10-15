@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   var tabs = document.querySelectorAll('#area-tabs [data-bs-toggle="pill"]');
   var courses = document.querySelectorAll(".course-list .accordion-collapse");
+  var catalogueTitle = document.title;
+
+  function updateTitle() {
+    var selected = document.querySelector(".tab-pane.active .accordion-collapse.show");
+    document.title = selected ? selected.dataset.courseTitle : catalogueTitle;
+  }
 
   function courseFromHash() {
     var name = location.hash.slice(1);
@@ -35,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!course || "#" + course.closest(".tab-pane").id !== tab.dataset.bsTarget) {
         history.replaceState(null, "", tab.dataset.bsTarget);
       }
+      updateTitle();
     });
   });
   courses.forEach(function (course) {
@@ -65,7 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (course.closest(".tab-pane").classList.contains("active")) {
         history.replaceState(null, "", "#" + course.id.slice("course-".length));
       }
+      updateTitle();
     });
+    course.addEventListener("hidden.bs.collapse", updateTitle);
   });
   window.addEventListener("hashchange", showFromHash);
   showFromHash();

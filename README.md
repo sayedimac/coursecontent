@@ -13,3 +13,5 @@ Opening the link selects the course's area and expands its details.
 Existing area links such as `#area-0` continue to work.
 
 A flask icon beside a course title indicates that a hands-on labs link is available.
+The browser tab title shows the expanded course's code and title, or the catalogue
+title when no course is expanded in the selected area.
