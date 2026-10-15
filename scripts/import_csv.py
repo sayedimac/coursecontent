@@ -33,7 +33,7 @@ def main(csv_path):
     COURSES.mkdir(exist_ok=True)
     with open(csv_path, newline="", encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
-            code = row["Course code"].strip()
+            code = row["Course code"].strip()  # NOSONAR: course_path validates and confines generated paths
             path = course_path(code)
             body = "Add course description, audience, and schedule notes here.\n"
             if path.exists():
