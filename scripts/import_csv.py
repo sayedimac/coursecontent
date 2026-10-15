@@ -17,6 +17,8 @@ def q(value):
 
 
 def course_path(code):
+    if not re.fullmatch(r"[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*", code):
+        raise ValueError("Course code must contain only letters, numbers, dots, and hyphens")
     slug = re.sub(r"[^a-z0-9]+", "-", code.lower()).strip("-")
     courses_dir = COURSES.resolve()
     path = (courses_dir / f"{slug}.md").resolve()
