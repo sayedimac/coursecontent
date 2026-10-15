@@ -99,6 +99,8 @@ def render_course(c, parent_id):
     actions = (
         link(c.get("learn_url"), "Course on Microsoft Learn", "btn btn-primary btn-sm")
         + link(c.get("labs_url"), "Hands-on labs (GitHub)", "btn btn-outline-primary btn-sm")
+        + f"<a href='#{e(c['slug'])}' class='btn btn-outline-secondary btn-sm' data-share-course "
+        f"aria-label='Share {e(c['code'])}'>Share</a>"
     )
     return (
         "<div class='accordion-item'>"
@@ -109,6 +111,9 @@ def render_course(c, parent_id):
         f"<div id='{item_id}' class='accordion-collapse collapse' data-bs-parent='#{parent_id}'>"
         f"<div class='accordion-body'>{render_body(c['body'])}{details}"
         f"<div class='d-flex flex-column flex-sm-row flex-wrap gap-2'>{actions}</div>"
+        "<p class='small text-body-secondary mt-2 mb-0' data-share-status role='status'></p>"
+        "<input class='form-control form-control-sm mt-2' data-share-url "
+        "type='text' readonly hidden aria-label='Course link to copy'>"
         "</div></div></div>"
     )
 

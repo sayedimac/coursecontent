@@ -38,6 +38,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
   courses.forEach(function (course) {
+    var share = course.querySelector("[data-share-course]");
+    var status = course.querySelector("[data-share-status]");
+    var shareUrl = course.querySelector("[data-share-url]");
+    share.addEventListener("click", async function (event) {
+      event.preventDefault();
+      status.textContent = "";
+      shareUrl.hidden = true;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(share.href);
+          status.textContent = "Course link copied!";
+          return;
+        } catch (error) {
+          status.textContent = "Could not copy the link automatically. Copy the selected link below.";
+        }
+      } else {
+        status.textContent = "Clipboard unavailable. Copy the selected link below.";
+      }
+      shareUrl.value = share.href;
+      shareUrl.hidden = false;
+      shareUrl.focus();
+      shareUrl.select();
+    });
     course.addEventListener("shown.bs.collapse", function () {
       if (course.closest(".tab-pane").classList.contains("active")) {
         history.replaceState(null, "", "#" + course.id.slice("course-".length));
