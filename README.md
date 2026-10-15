@@ -2,5 +2,3 @@
 
 There are some scripts and othercontent I use in my training
 
-
-# enJoY!!
