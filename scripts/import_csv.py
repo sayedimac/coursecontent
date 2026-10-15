@@ -2,7 +2,8 @@
 
 Usage: python scripts/import_csv.py catalogue.csv
 
-Existing files keep their body text; only the front matter is refreshed.
+Existing files keep their body text and any extra front matter keys (level,
+duration, audience); only the CSV-managed fields are refreshed.
 """
 import csv
 import re
@@ -10,6 +11,7 @@ import sys
 from pathlib import Path
 
 COURSES = Path(__file__).resolve().parent.parent / "courses"
+MANAGED = {"code", "title", "area", "learn_url", "labs_url"}
 
 
 def q(value):
@@ -36,17 +38,22 @@ def main(csv_path):
             code = row["Course code"].strip()
             path = course_path(code)
             body = "Add course description, audience, and schedule notes here.\n"
+            extra = []
             if path.exists():
                 parts = path.read_text(encoding="utf-8").split("---", 2)
                 if len(parts) == 3:
                     body = parts[2].lstrip("\n")
+                    extra = [
+                        line for line in parts[1].strip().splitlines()
+                        if line.partition(":")[0].strip() not in MANAGED
+                    ]
             front = [
                 f"code: {q(code)}",
                 f"title: {q(row['Course title'].strip())}",
                 f"area: {q(row['Area'].strip())}",
                 f"learn_url: {q(row['MS Learn course URL'].strip())}",
                 f"labs_url: {q(row['GitHub labs URL'].strip())}",
-            ]
+            ] + extra
             path.write_text("---\n" + "\n".join(front) + "\n---\n\n" + body, encoding="utf-8")
             print("wrote", path.name)
 

@@ -32,72 +32,69 @@ body {
 	max-width: 45rem;
 }
 
-.course-section {
-	scroll-margin-top: 1rem;
+.area-nav .nav-link {
+  color: #1f2933;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  text-align: left;
+  white-space: nowrap;
 }
 
-.course-card {
-	border: 0;
-	transition: transform .15s ease, box-shadow .15s ease;
+.area-nav .nav-link:hover {
+  background: #eef5fb;
 }
 
-.course-card:hover,
-.course-card:focus-within {
-	box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .12) !important;
-	transform: translateY(-2px);
+.area-nav .nav-link.active {
+  color: #fff;
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
 }
 
-.course-card .card-title {
-	line-height: 1.35;
+.area-nav .nav-link.active .badge {
+  color: var(--bs-primary);
 }
 
-.course-card a {
-	color: #005a9e;
-	text-decoration: none;
+.course-list .accordion-button:not(.collapsed) {
+  color: #003a70;
+  background: #eef5fb;
+}
+
+.course-list .accordion-button {
+  align-items: center;
 }
 
 .course-code {
-	color: #5c636a;
-	font-size: .8rem;
-	font-weight: 700;
-	letter-spacing: .04em;
-	text-transform: uppercase;
+  color: #5c636a;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
-.content-narrow {
-	max-width: 52rem;
-}
-
-.course-description {
-	font-size: 1.05rem;
-	line-height: 1.7;
-}
-
-.course-actions .btn {
-	min-width: 13rem;
+@media (max-width: 991.98px) {
+  .area-nav {
+    overflow-x: auto;
+    padding-bottom: .5rem;
+  }
 }
 
 @media (max-width: 575.98px) {
-	.navbar-brand {
-		font-size: 1rem;
-	}
+  .navbar-brand {
+    font-size: 1rem;
+  }
 
-	.catalogue-hero {
-		border-radius: .75rem !important;
-	}
+  .catalogue-hero {
+    border-radius: .75rem !important;
+  }
 
-	.catalogue-hero .display-5,
-	.content-narrow .display-6 {
-		font-size: calc(1.35rem + 1.2vw);
-	}
-
-	.course-actions .btn {
-		width: 100%;
-	}
+  .course-list .btn {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.course-card {
+  .tab-pane.fade,
+  .accordion-collapse {
 		transition: none;
 	}
 }
